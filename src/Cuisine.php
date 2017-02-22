@@ -58,7 +58,12 @@
 
         function delete()
         {
-
+            $GLOBALS['DB']->exec(
+                "DELETE FROM cuisines
+                    WHERE
+                        id NOT IN (SELECT cuisine_id FROM restaurants) AND
+                        id = {$this->getId()};"
+            );
         }
 
         static function getAll()
