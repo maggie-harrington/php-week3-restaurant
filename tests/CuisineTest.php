@@ -20,7 +20,17 @@ class CuisineTest extends PHPUnit_Framework_TestCase
 
     function test_new_Cuisine()
     {
-        $this->assertEquals(1, 1);
+        // Arrange
+        $new_cuisine = new Cuisine('Pub', 'link1');
+        $new_cuisine2 = new Cuisine('Korean', 'link2');
+
+        // Act
+        $new_cuisine->save();
+        $new_cuisine2->save();
+        $all_cuisines = Cuisine::getAll();
+
+        // Assert
+        $this->assertEquals([$new_cuisine2, $new_cuisine], $all_cuisines);
     }
 
 }
