@@ -51,9 +51,11 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update()
+        function update($new_name, $new_link)
         {
-
+            $GLOBALS['DB']->exec("UPDATE cuisines SET name = '{$new_name}', link = '{$new_link}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+            $this->setLink($new_link);
         }
 
         function delete()
