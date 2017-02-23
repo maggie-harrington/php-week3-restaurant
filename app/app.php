@@ -23,6 +23,9 @@
         return $app['twig']->render('cuisines.html.twig', array('cuisines' => Cuisine::getAll()));
     });
 
+    $app->get("/get/cuisine/{cuisine_id}", function($cuisine_id) use ($app) {
+        return $app['twig']->render('restaurants.html.twig', array('cuisines' => Restaurant::getAll($cuisine_id)));
+    });
 
     return $app;
 ?>

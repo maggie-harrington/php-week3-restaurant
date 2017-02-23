@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block page %}
-    <h3>View and Edit Cuisines</h3>
+    <h3>View and Edit Cuisines</h3><br>
 
+    <h4>Click the cuisine links to view restaurants</h4>
     {% for cuisine in cuisines %}
-        {{ cuisine.getName }}<br>
+        <a href='/get/cuisine/{{ cuisine.getId }}'>{{ cuisine.getName }}</a><br>
     {% endfor %}
 
-    <br>
+    <br><br>
     <form action='/post/cuisine' method='post'>
         <div class='form-group'>
             <label for='cuisine_name'>Name of new cuisine</label>

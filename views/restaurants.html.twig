@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block page %}
+    <h3>Restaurants Serving {{ cuisine.getName }}</h3><br>
+
+    {% for restaurant in restaurants %}
+        <p>
+            {{ restaurant.getLocation }}
+            <a href='{{ restaurant.getLink }}' target='_blank'>{{ restaurant.getName }}</a>
+        </p>
+    {% endfor %}
+
+    <br><br>
+    <form action='/post/restaurant' method='post'>
+        <div class='form-group'>
+            <label for='restaurant_name'>Name of new restaurant</label>
+            <input
+                required type='text' name='restaurant_name' class='form-control'
+                placeholder='Example: McMenamins'
+            >
+        </div>
+        <div class='form-group'>
+            <label for='restaurant_location'>Location</label>
+            <input
+                required type='text' name='restaurant_location' class='form-control'
+                placeholder='Example: NW Portland'
+            >
+        </div>
+        <div class='form-group'>
+            <label for='restaurant_link'>Optional website</label>
+            <input
+                type='text' name='restaurant_link' class='form-control'
+                placeholder='Example: https://www.mcmenamins.com'
+            >
+        </div>
+        <button type='submit' class='btn btn-info'>Submit</button>
+    </form>
+
+{% endblock %}
