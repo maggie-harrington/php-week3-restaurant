@@ -54,14 +54,14 @@ This lab is about using mySQL, Classes, TestClasses, Silex and Twig frameworks
 4. Create empty Restaurant class with constructor, getters, setters, save, delete, update, getAll, deleteAll.
 5. Iterate between RestaurantTest and Restaurant classes to test all methods.
 6. Silex framework with 'Hello' on home page (app.php, index.php).
-7. Twig home Cuisine page (twig, app.php).
+7. A. Basic Bootstrap styling.
+7. B. Twig home Cuisine page (twig, app.php).
 8. Twig Restaurant page (twig, app.php).
-9. Basic Bootstrap styling.
-10. Edit and delete for Cuisine and Restaurant.
-11. Prevent dups and blanks.
-12. Counts of restaurants by Cuisine.
-13. Review class and test.
-14. Add review page.
-15. Incorporate reviews with restaurant page.
+9. Edit and delete for Cuisine and Restaurant.
+10. Prevent dups and blanks.
+11. Counts of restaurants by Cuisine.
+12. Review class and test.
+13. Add review page.
+14. Incorporate reviews with restaurant page.
 
 * End specifications
