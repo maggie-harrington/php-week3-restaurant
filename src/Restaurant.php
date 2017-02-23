@@ -91,10 +91,10 @@
             );
         }
 
-        static function getAll()
+        static function getAll($cuisine_id)
         {
             $output = array();
-            $results = $GLOBALS['DB']->query("SELECT * FROM restaurants ORDER BY name;");
+            $results = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = $cuisine_id ORDER BY name;");
             foreach ($results as $result) {
                 $new_restaurant = new Restaurant(
                     $result['name'],
