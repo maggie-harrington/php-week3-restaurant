@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block page %}
+    <h3>View and Edit Cuisines</h3>
+
+    {% for cuisine in cuisines %}
+        {{ cuisine.getName }}<br>
+    {% endfor %}
+
+    <br>
+    <form action='/post/cuisine' method='post'>
+        <div class='form-group'>
+            <label for='cuisine_name'>Name of new cuisine</label>
+            <input
+                required type='text' name='cuisine_name' class='form-control'
+                placeholder='Example: Korean'
+            >
+        </div>
+        <div class='form-group'>
+            <label for='cuisine_link'>Optional website or search</label>
+            <input
+                type='text' name='cuisine_link' class='form-control'
+                placeholder='Example: https://www.google.com/search?q=Korean+Cuisine'
+            >
+        </div>
+        <button type='submit' class='btn btn-info'>Submit</button>
+    </form>
+
+{% endblock %}

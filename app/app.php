@@ -12,20 +12,17 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
-    // $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    //     'twig.path' => __DIR__.'/../views'
-    // ));
+    $app->register(new Silex\Provider\TwigServiceProvider(), array(
+        'twig.path' => __DIR__.'/../views'
+    ));
 
     // use Symfony\Component\HttpFoundation\Request;
     // Request::enableHttpMethodParameterOverride();
 
-    // $app->get("/", function() use ($app) {
-    //     return $app['twig']->render('index.html.twig', array('categories' => Category::getAll()));
-    // });
-
-    $app->get("/", function() {
-        return "Hello Restaurants";
+    $app->get("/", function() use ($app) {
+        return $app['twig']->render('cuisines.html.twig', array('cuisines' => Cuisine::getAll()));
     });
+
 
     return $app;
 ?>

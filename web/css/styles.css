@@ -1,0 +1,9 @@
+footer {
+    font-weight: 300;
+    font-size: 12pt;
+    display: block;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    bottom: 0%;
+}
