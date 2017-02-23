@@ -53,7 +53,7 @@ class RestaurantTest extends PHPUnit_Framework_TestCase
 
       $new_cuisine2 = new Cuisine('Fast Food', 'google.com?fastfood');
       $new_cuisine2->save();
-      
+
       $new_restaurant2 = new Restaurant('McDonalds', 'mcdonalds.com?location=23222424', 'NE Portland', $new_cuisine2->getId());
       $new_restaurant2->save();
 
@@ -68,23 +68,33 @@ class RestaurantTest extends PHPUnit_Framework_TestCase
       $this->assertEquals([$new_restaurant3], $all_restaurants);
     }
 
-    // function test_update_Cuisine()
-    // {
-    //     // Arrange
-    //     $new_cuisine = new Cuisine('Pub', 'link1');
-    //     $new_cuisine2 = new Cuisine('Korean', 'link2');
-    //
-    //     // Act
-    //     $new_cuisine->save();
-    //     $new_cuisine2->save();
-    //
-    //     $new_cuisine->update('American', $new_cuisine->getLink());
-    //     $new_cuisine2->update($new_cuisine2->getName(), 'link2update');
-    //
-    //     $all_cuisines = Cuisine::getAll();
-    //
-    //     // Assert
-    //     $this->assertEquals([$new_cuisine, $new_cuisine2], $all_cuisines);
-    // }
+    function test_update_Restaurant()
+    {
+      // Arrange
+      $new_cuisine = new Cuisine('Pub', 'link1');
+      $new_cuisine->save();
+      $new_restaurant = new Restaurant('Sasquatch', 'Link_Sas', 'Hillsdale', $new_cuisine->getId());
+      $new_restaurant->save();
+
+      $new_cuisine2 = new Cuisine('Fast Food', 'google.com?fastfood');
+      $new_cuisine2->save();
+
+      $new_restaurant2 = new Restaurant('McDonalds', 'mcdonalds.com?location=23222424', 'NE Portland', $new_cuisine2->getId());
+      $new_restaurant2->save();
+
+      $new_restaurant3 = new Restaurant('BurgerKing', 'bk.com?location=232424', 'NE Portland', $new_cuisine2->getId());
+      $new_restaurant3->save();
+
+      // Act
+      $new_restaurant2->update($new_restaurant2->getName(), $new_restaurant2->getLink(), 'SE Portland', $new_restaurant2->getCuisineId());
+      $new_restaurant3->update($new_restaurant3->getName(), 'bk.com?location=232428', $new_restaurant3->getLocation(), $new_restaurant3->getCuisineId());
+      $new_restaurant2->update('Taco Bell', $new_restaurant2->getLink(), $new_restaurant2->getLocation(), $new_restaurant2->getCuisineId());
+      $new_restaurant->update($new_restaurant->getName(), $new_restaurant->getLink(), $new_restaurant->getLocation(), $new_cuisine2->getId());
+
+      $all_restaurants = Restaurant::getAll($new_cuisine2->getId());
+
+      // Assert
+      $this->assertEquals([$new_restaurant3, $new_restaurant, $new_restaurant2], $all_restaurants);
+    }
 }
 ?>
