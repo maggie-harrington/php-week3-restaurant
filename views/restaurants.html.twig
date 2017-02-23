@@ -6,12 +6,18 @@
     {% for restaurant in restaurants %}
         <p>
             {{ restaurant.getLocation }}
-            <a href='{{ restaurant.getLink }}' target='_blank'>{{ restaurant.getName }}</a>
+            {% if restaurant.getLink is not empty %}
+                <a href='{{ restaurant.getLink }}' target='_blank'>{{ restaurant.getName }}</a>
+            {% else %}
+                {{ restaurant.getName }}
+            {% endif %}
         </p>
     {% endfor %}
 
     <br><br>
     <form action='/post/restaurant' method='post'>
+        <input type='text' name='cuisine_id' hidden value='{{ cuisine.getId }}'>
+
         <div class='form-group'>
             <label for='restaurant_name'>Name of new restaurant</label>
             <input
