@@ -16,18 +16,50 @@
         'twig.path' => __DIR__.'/../views'
     ));
 
-    // use Symfony\Component\HttpFoundation\Request;
-    // Request::enableHttpMethodParameterOverride();
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
 
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('cuisines.html.twig', array('cuisines' => Cuisine::getAll()));
+        $edit_cuisine = new Cuisine('','');
+
+        return $app['twig']->render(
+            'cuisines.html.twig',
+            array('cuisines' => Cuisine::getAll(), 'edit_cuisine' => $edit_cuisine, 'is_edit' => false)
+        );
+    });
+
+    $app->get("/get/cuisine/{id}", function($id) use ($app) {
+        $edit_cuisine = Cuisine::findById($id);
+
+        return $app['twig']->render(
+            'cuisines.html.twig',
+            array('cuisines' => Cuisine::getAll(), 'edit_cuisine' => $edit_cuisine, 'is_edit' => true)
+        );
+    });
+
+    $app->patch("/patch/cuisine/{id}", function($id) use ($app) {
+        $edit_cuisine = Cuisine::findById($id);
+        $edit_cuisine->update(
+            $_POST['cuisine_name'],
+            $_POST['cuisine_link']
+        );
+        $edit_cuisine = new Cuisine('','');
+
+        return $app['twig']->render(
+            'cuisines.html.twig',
+            array('cuisines' => Cuisine::getAll(), 'edit_cuisine' => $edit_cuisine, 'is_edit' => false)
+        );
     });
 
     $app->post("/post/cuisine", function() use ($app) {
         $new_cuisine = new Cuisine($_POST['cuisine_name'], $_POST['cuisine_link']);
         $new_cuisine->save();
+        $edit_cuisine = new Cuisine('','');
 
-        return $app['twig']->render('cuisines.html.twig', array('cuisines' => Cuisine::getAll()));
+        return $app['twig']->render(
+            'cuisines.html.twig',
+            array('cuisines' => Cuisine::getAll(), 'edit_cuisine' => $edit_cuisine, 'is_edit' => false)
+        );
     });
 
     $app->post("/post/restaurant", function() use ($app) {

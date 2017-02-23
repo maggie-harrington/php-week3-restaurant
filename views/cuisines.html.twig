@@ -5,16 +5,37 @@
 
     <h4>Click the cuisine links to view restaurants</h4>
     {% for cuisine in cuisines %}
-        <a href='/get/cuisine/{{ cuisine.getId }}'>{{ cuisine.getName }}</a><br>
+        <a href='/get/cuisine/{{ cuisine.getId }}'>{{ cuisine.getName }}</a>
+        {% if cuisine.getLink is not empty %}
+            <a href='{{ cuisine.getLink }} }}'>{{ cuisine.getLink }}</a>
+        {% endif %}
+        <form action='/get/cuisine/{{ cuisine.getId }}' method='get'>
+            <button type='submit' class='btn btn-xs btn-info'>Edit</button>
+        </form>
+
+        <br>
     {% endfor %}
 
     <br><br>
-    <form action='/post/cuisine' method='post'>
+    <form
+        {% if is_edit %}
+            action='/patch/cuisine/{{ edit_cuisine.getId }}'
+        {% else %}
+            action='/post/cuisine'
+        {% endif %}
+        method='post'
+    >
+
+        {% if is_edit %}
+            <input name='_method' value='patch' hidden>
+        {% endif %}
+
         <div class='form-group'>
             <label for='cuisine_name'>Name of new cuisine</label>
             <input
                 required type='text' name='cuisine_name' class='form-control'
                 placeholder='Example: Korean'
+                value='{{ edit_cuisine.getName|default('') }}'
             >
         </div>
         <div class='form-group'>
@@ -22,6 +43,7 @@
             <input
                 type='text' name='cuisine_link' class='form-control'
                 placeholder='Example: https://www.google.com/search?q=Korean+Cuisine'
+                value='{{ edit_cuisine.getlink|default('') }}'
             >
         </div>
         <button type='submit' class='btn btn-info'>Submit</button>
