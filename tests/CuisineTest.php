@@ -67,5 +67,19 @@ class CuisineTest extends PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals([$new_cuisine, $new_cuisine2], $all_cuisines);
     }
+
+    function test_find_Cuisine()
+    {
+        // Arrange
+        $new_cuisine = new Cuisine('Pub', 'link1');
+        $new_cuisine->save();
+        $new_cuisine_id = $new_cuisine->getId();
+
+        // Act
+        $cuisine2 = Cuisine::findById($new_cuisine_id);
+
+        // Assert
+        $this->assertEquals($new_cuisine, $new_cuisine2);
+    }
 }
 ?>
