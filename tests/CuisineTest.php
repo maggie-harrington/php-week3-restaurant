@@ -79,7 +79,7 @@ class CuisineTest extends PHPUnit_Framework_TestCase
         $cuisine2 = Cuisine::findById($new_cuisine_id);
 
         // Assert
-        $this->assertEquals($new_cuisine, $new_cuisine2);
+        $this->assertEquals($new_cuisine, $cuisine2);
     }
 }
 ?>

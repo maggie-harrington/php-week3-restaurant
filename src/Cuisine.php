@@ -83,6 +83,19 @@
             return $output;
         }
 
+        static function findById($id)
+        {
+            $results = $GLOBALS['DB']->query("SELECT * FROM cuisines WHERE id = $id;");
+            foreach ($results as $result) {
+                $new_cuisine = new Cuisine(
+                    $result['name'],
+                    $result['link'],
+                    $result['id']
+                );
+            }
+            return $new_cuisine;
+        }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec(
