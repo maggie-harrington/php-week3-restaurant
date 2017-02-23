@@ -49,9 +49,9 @@ This lab is about using mySQL, Classes, TestClasses, Silex and Twig frameworks
 ## Specifications
 
 1. Create database (restaurants.zip).
-2. Create empty Cuisine class with constructor, getters, setters, save, delete, update, getAll.
+2. Create empty Cuisine class with constructor, getters, setters, save, delete, update, getAll, deleteAll.
 3. Iterate between CuisineTest and Cuisine classes to test all methods.
-4. Create empty Restaurant class with constructor, getters, setters, save, delete, update, getAll.
+4. Create empty Restaurant class with constructor, getters, setters, save, delete, update, getAll, deleteAll.
 5. Iterate between RestaurantTest and Restaurant classes to test all methods.
 6. Silex framework with 'Hello' on home page (app.php, index.php).
 7. Twig home Cuisine page (twig, app.php).
