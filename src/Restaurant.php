@@ -118,6 +118,21 @@
                 "DELETE FROM restaurants;"
             );
         }
+
+        static function find($restaurant_id)
+        {
+            $results = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE id = $restaurant_id;");
+            foreach ($results as $result) {
+                $found_restaurant = new Restaurant(
+                    $result['name'],
+                    $result['link'],
+                    $result['location'],
+                    $result['cuisine_id'],
+                    $result['id']
+                );
+            }
+            return $found_restaurant;
+        }
     }
 
 ?>
