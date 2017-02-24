@@ -125,5 +125,20 @@
         );
     });
 
+    $app->delete("/delete/restaurant/{id}", function($id) use ($app) {
+        $delete_restaurant = Restaurant::find($id);
+        $cuisine_id = $delete_restaurant->getCuisineId();
+        $cuisine = Cuisine::findById($cuisine_id);
+
+        $delete_restaurant->delete();
+
+        $edit_restaurant = new Restaurant('','','','');
+
+        return $app['twig']->render(
+            'restaurants.html.twig',
+            array('restaurants' => Restaurant::getAll($cuisine_id), 'edit_restaurant' => $edit_restaurant, 'is_edit_r' => false, 'cuisine' => $cuisine)
+        );
+    });
+
     return $app;
 ?>
