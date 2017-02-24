@@ -68,9 +68,13 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec(
+            $name = addslashes($this->getName());
+            $link = addslashes($this->getLink());
+            $location = addslashes($this->getLocation());
+
+            $result = $GLOBALS['DB']->exec(
                 "INSERT INTO restaurants (name, link, location, cuisine_id) VALUES
-                    ('{$this->getName()}', '{$this->getLink()}', '{$this->getLocation()}', {$this->getCuisineId()});"
+                    ('{$name}', '{$link}', '{$location}', {$this->getCuisineId()});"
             );
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
