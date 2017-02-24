@@ -12,10 +12,28 @@
                 {{ restaurant.getName }}
             {% endif %}
         </p>
+
+        <form action='/get/restaurant/{{ restaurant.getId }}' method='get'>
+            <button type='submit' class='btn btn-xs btn-info'>Edit</button>
+        </form>
+
+        <br>
     {% endfor %}
 
     <br><br>
-    <form action='/post/restaurant' method='post'>
+    <form
+        {% if is_edit_r %}
+            action='/patch/restaurant/{{ edit_restaurant.getId }}'
+        {% else %}
+            action='/post/restaurant'
+        {% endif %}
+        method='post'
+    >
+
+        {% if is_edit_r %}
+            <input name='_method' value='patch' hidden>
+        {% endif %}
+    <!-- <form action='/post/restaurant' method='post'> -->
         <input type='text' name='cuisine_id' hidden value='{{ cuisine.getId }}'>
 
         <div class='form-group'>
@@ -23,6 +41,7 @@
             <input
                 required type='text' name='restaurant_name' class='form-control'
                 placeholder='Example: McMenamins'
+                value='{{ edit_restaurant.getName|default('') }}'
             >
         </div>
         <div class='form-group'>
@@ -30,6 +49,7 @@
             <input
                 required type='text' name='restaurant_location' class='form-control'
                 placeholder='Example: NW Portland'
+                value='{{ edit_restaurant.getLocation|default('') }}'
             >
         </div>
         <div class='form-group'>
@@ -37,6 +57,7 @@
             <input
                 type='text' name='restaurant_link' class='form-control'
                 placeholder='Example: https://www.mcmenamins.com'
+                value='{{ edit_restaurant.getLink|default('') }}'
             >
         </div>
         <button type='submit' class='btn btn-info'>Submit</button>

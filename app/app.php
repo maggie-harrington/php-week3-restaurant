@@ -85,14 +85,43 @@
 
         return $app['twig']->render(
             'restaurants.html.twig',
-            array('restaurants' => Restaurant::getAll($cuisine_id), 'cuisine' => Cuisine::findById($cuisine_id))
+            array('restaurants' => Restaurant::getAll($cuisine_id), 'cuisine' => Cuisine::findById($cuisine_id), 'is_edit_r' => false)
         );
     });
 
     $app->get("/get/restaurants/{cuisine_id}", function($cuisine_id) use ($app) {
         return $app['twig']->render(
             'restaurants.html.twig',
-            array('restaurants' => Restaurant::getAll($cuisine_id), 'cuisine' => Cuisine::findById($cuisine_id))
+            array('restaurants' => Restaurant::getAll($cuisine_id), 'cuisine' => Cuisine::findById($cuisine_id), 'is_edit_r' => false)
+        );
+    });
+
+    $app->get("/get/restaurant/{id}", function($id) use ($app) {
+        $edit_restaurant = Restaurant::find($id);
+        $cuisine_id = $edit_restaurant->getCuisineId();
+        $cuisine = Cuisine::findById($cuisine_id);
+
+        return $app['twig']->render(
+            'restaurants.html.twig',
+            array('restaurants' => Restaurant::getAll($id), 'edit_restaurant' => $edit_restaurant, 'is_edit_r' => true, 'cuisine' => $cuisine)
+        );
+    });
+
+    $app->patch("/patch/restaurant/{id}", function($id) use ($app) {
+        $edit_restaurant = Restaurant::find($id);
+        $cuisine_id = $edit_restaurant->getCuisineId();
+        $cuisine = Cuisine::findById($cuisine_id);
+        $edit_restaurant->update(
+            $_POST['restaurant_name'],
+            $_POST['restaurant_link'],
+            $_POST['restaurant_location'],
+            $cuisine_id
+        );
+        $edit_restaurant = new Restaurant('','','','');
+
+        return $app['twig']->render(
+            'restaurants.html.twig',
+            array('restaurants' => Restaurant::getAll($cuisine_id), 'edit_restaurant' => $edit_restaurant, 'is_edit_r' => false, 'cuisine' => $cuisine)
         );
     });
 

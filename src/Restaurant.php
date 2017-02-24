@@ -84,8 +84,11 @@
             $this->setName($new_name);
             $this->setLink($new_link);
             $this->setLocation($new_location);
-            $this->setCuisineId($new_cuisine_id);
-            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$this->getName()}', link = '{$this->getLink()}', location = '{$this->getLocation()}', cuisine_id = {$this->getCuisineId()} WHERE id = {$this->getId()};");
+
+            $name = addslashes($this->getName());
+            $link = addslashes($this->getLink());
+            $location = addslashes($this->getLocation());
+            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$name}', link = '{$link}', location = '{$location}', cuisine_id = {$this->getCuisineId()} WHERE id = {$this->getId()};");
         }
 
         function delete()
