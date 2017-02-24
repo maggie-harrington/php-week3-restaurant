@@ -51,6 +51,17 @@
         );
     });
 
+    $app->delete("/delete/cuisine/{id}", function($id) use ($app) {
+        $delete_cuisine = Cuisine::findById($id);
+        $delete_cuisine->delete();
+        $edit_cuisine = new Cuisine('','');
+
+        return $app['twig']->render(
+            'cuisines.html.twig',
+            array('cuisines' => Cuisine::getAll(), 'edit_cuisine' => $edit_cuisine, 'is_edit' => false)
+        );
+    });
+
     $app->post("/post/cuisine", function() use ($app) {
         $new_cuisine = new Cuisine($_POST['cuisine_name'], $_POST['cuisine_link']);
         $new_cuisine->save();
@@ -78,7 +89,7 @@
         );
     });
 
-    $app->get("/get/cuisine/{cuisine_id}", function($cuisine_id) use ($app) {
+    $app->get("/get/restaurants/{cuisine_id}", function($cuisine_id) use ($app) {
         return $app['twig']->render(
             'restaurants.html.twig',
             array('restaurants' => Restaurant::getAll($cuisine_id), 'cuisine' => Cuisine::findById($cuisine_id))
